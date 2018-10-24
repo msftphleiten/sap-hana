@@ -101,7 +101,7 @@ module "create_db0" {
   storage_disk_sizes_gb     = "${var.storage_disk_sizes_gb}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
-  zone                      = "1"
+  zones                     = "1"
 }
 
 module "create_db1" {
@@ -120,7 +120,7 @@ module "create_db1" {
   storage_disk_sizes_gb     = "${var.storage_disk_sizes_gb}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
-  zone                      = "2"
+  zones                     = "2"
 }
 
 module "nic_and_pip_setup_iscsi" {
@@ -147,7 +147,7 @@ module "vm_and_disk_creation_iscsi" {
   vm_size               = "Standard_D2s_v3"
   nic_id                = "${module.nic_and_pip_setup_iscsi.nic_id}"
   machine_type          = "iscsi"
-  zone                  = "3"
+  zones                 = "3"
 }
 
 module "windows_bastion_host" {
