@@ -28,6 +28,7 @@ resource "azurerm_lb" "ha-pair-lb" {
   name                = "ha-pair-lb"
   location            = "${var.az_region}"
   resource_group_name = "${module.common_setup.resource_group_name}"
+  sku                 = "Standard"
 
   frontend_ip_configuration {
     name                          = "hsr-front"
