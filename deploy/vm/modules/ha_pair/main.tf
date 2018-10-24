@@ -87,7 +87,6 @@ resource "azurerm_lb_rule" "lb-hana2-rule" {
 module "create_db0" {
   source = "../create_db_node"
 
-  availability_set_id       = "${azurerm_availability_set.ha-pair-availset.id}"
   az_resource_group         = "${module.common_setup.resource_group_name}"
   az_region                 = "${module.common_setup.resource_group_location}"
   backend_ip_pool_ids       = ["${azurerm_lb_backend_address_pool.availability-back-pool.id}"]
@@ -101,12 +100,12 @@ module "create_db0" {
   storage_disk_sizes_gb     = "${var.storage_disk_sizes_gb}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
+  zone                      = "1"
 }
 
 module "create_db1" {
   source = "../create_db_node"
 
-  availability_set_id       = "${azurerm_availability_set.ha-pair-availset.id}"
   az_resource_group         = "${module.common_setup.resource_group_name}"
   az_region                 = "${module.common_setup.resource_group_location}"
   backend_ip_pool_ids       = ["${azurerm_lb_backend_address_pool.availability-back-pool.id}"]
@@ -120,6 +119,7 @@ module "create_db1" {
   storage_disk_sizes_gb     = "${var.storage_disk_sizes_gb}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
+  zone                      = "2"
 }
 
 module "nic_and_pip_setup_iscsi" {
@@ -145,8 +145,8 @@ module "vm_and_disk_creation_iscsi" {
   vm_user               = "${var.vm_user}"
   vm_size               = "Standard_D2s_v3"
   nic_id                = "${module.nic_and_pip_setup_iscsi.nic_id}"
-  availability_set_id   = "${azurerm_availability_set.ha-pair-availset.id}"
   machine_type          = "iscsi"
+  zone                  = "3"
 }
 
 module "windows_bastion_host" {
